@@ -15,6 +15,9 @@ namespace Discord.API.Rest
         [JsonProperty("tts")]
         public Optional<bool> IsTTS { get; set; }
 
+        [JsonProperty("embeds")]
+        public Optional<Embed[]> Embeds { get; set; }
+
         [JsonProperty("embed")]
         public Optional<Embed> Embed { get; set; }
 
