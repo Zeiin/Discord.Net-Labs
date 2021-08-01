@@ -102,8 +102,8 @@ namespace Discord.Rest
 
         /// <inheritdoc />
         /// <exception cref="ArgumentOutOfRangeException">Message content is too long, length must be less or equal to <see cref="DiscordConfig.MaxMessageSize"/>.</exception>
-        public Task<RestUserMessage> SendMessageAsync(string text = null, bool isTTS = false, Embed embed = null, RequestOptions options = null, AllowedMentions allowedMentions = null, MessageReference messageReference = null, MessageComponent component = null)
-            => ChannelHelper.SendMessageAsync(this, Discord, text, isTTS, embed, allowedMentions, messageReference, component, options);
+        public Task<RestUserMessage> SendMessageAsync(string text = null, bool isTTS = false, Embed[] embeds = null, RequestOptions options = null, AllowedMentions allowedMentions = null, MessageReference messageReference = null, MessageComponent component = null, Embed embed = null)
+            => ChannelHelper.SendMessageAsync(this, Discord, text, isTTS, embeds, allowedMentions, messageReference, component, options, embed);
 
         /// <inheritdoc />
         /// <exception cref="ArgumentException">
@@ -322,8 +322,8 @@ namespace Discord.Rest
         async Task<IUserMessage> IMessageChannel.SendFileAsync(Stream stream, string filename, string text, bool isTTS, Embed embed, RequestOptions options, bool isSpoiler, AllowedMentions allowedMentions, MessageReference messageReference, MessageComponent component)
             => await SendFileAsync(stream, filename, text, isTTS, embed, options, isSpoiler, allowedMentions, messageReference, component).ConfigureAwait(false);
         /// <inheritdoc />
-        async Task<IUserMessage> IMessageChannel.SendMessageAsync(string text, bool isTTS, Embed embed, RequestOptions options, AllowedMentions allowedMentions, MessageReference messageReference, MessageComponent component)
-            => await SendMessageAsync(text, isTTS, embed, options, allowedMentions, messageReference, component).ConfigureAwait(false);
+        async Task<IUserMessage> IMessageChannel.SendMessageAsync(string text, bool isTTS, Embed[] embeds, RequestOptions options, AllowedMentions allowedMentions, MessageReference messageReference, MessageComponent component, Embed embed)
+            => await SendMessageAsync(text, isTTS, embeds, options, allowedMentions, messageReference, component, embed).ConfigureAwait(false);
 
         //IGuildChannel
         /// <inheritdoc />

@@ -38,12 +38,13 @@ namespace Discord
         public static async Task<IUserMessage> SendMessageAsync(this IUser user,
             string text = null,
             bool isTTS = false,
-            Embed embed = null,
+            Embed[] embeds = null,
             RequestOptions options = null,
             AllowedMentions allowedMentions = null,
-            MessageComponent component = null)
+            MessageComponent component = null,
+            Embed embed = null)
         {
-            return await (await user.CreateDMChannelAsync().ConfigureAwait(false)).SendMessageAsync(text, isTTS, embed, options, allowedMentions, component: component).ConfigureAwait(false);
+            return await (await user.CreateDMChannelAsync().ConfigureAwait(false)).SendMessageAsync(text, isTTS, embeds, options, allowedMentions, null, component, embed).ConfigureAwait(false);
         }
 
         /// <summary>

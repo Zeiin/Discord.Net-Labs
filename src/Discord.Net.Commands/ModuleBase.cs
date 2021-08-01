@@ -30,15 +30,18 @@ namespace Discord.Commands
         /// Contents of the message; optional only if <paramref name="embed" /> is specified.
         /// </param>
         /// <param name="isTTS">Specifies if Discord should read this <paramref name="message"/> aloud using text-to-speech.</param>
+        /// <param name="embeds"></param>
+        /// <param name="options"></param>
         /// <param name="embed">An embed to be displayed alongside the <paramref name="message"/>.</param>
         /// <param name="allowedMentions">
         ///     Specifies if notifications are sent for mentioned users and roles in the <paramref name="message"/>.
         ///     If <c>null</c>, all mentioned roles and users will be notified.
         /// </param>
         /// <param name="messageReference">The message references to be included. Used to reply to specific messages.</param>
-        protected virtual async Task<IUserMessage> ReplyAsync(string message = null, bool isTTS = false, Embed embed = null, RequestOptions options = null, AllowedMentions allowedMentions = null, MessageReference messageReference = null, MessageComponent component = null)
+        /// <param name="component"></param>
+        protected virtual async Task<IUserMessage> ReplyAsync(string message = null, bool isTTS = false, Embed[] embeds = null, RequestOptions options = null, AllowedMentions allowedMentions = null, MessageReference messageReference = null, MessageComponent component = null, Embed embed = null)
         {
-            return await Context.Channel.SendMessageAsync(message, isTTS, embed, options, allowedMentions, messageReference, component).ConfigureAwait(false);
+            return await Context.Channel.SendMessageAsync(message, isTTS, embeds, options, allowedMentions, messageReference, component, embed).ConfigureAwait(false);
         }
         /// <summary>
         ///     The method to execute before executing the command.
