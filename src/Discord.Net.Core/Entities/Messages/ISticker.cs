@@ -20,7 +20,7 @@ namespace Discord
         /// <returns>
         ///     A snowflake ID associated with the pack of this sticker.
         /// </returns>
-        ulong PackId { get; }
+        ulong? PackId { get; }
         /// <summary>
         ///     Gets the name of this sticker.
         /// </summary>
@@ -50,12 +50,12 @@ namespace Discord
         /// </returns>
         string Asset { get; }
         /// <summary>
-        ///     Gets the preview asset hash of this sticker.
+        ///     Gets the type of sticker.
         /// </summary>
         /// <returns>
-        ///     A <see langword="string"/> with the preview asset hash of this sticker.
+        ///     A <see cref="StickerType"/> with the type of this sticker.
         /// </returns>
-        string PreviewAsset { get; }
+        StickerType Type { get; }
         /// <summary>
         ///     Gets the format type of this sticker.
         /// </summary>
@@ -63,5 +63,35 @@ namespace Discord
         ///     A <see cref="StickerFormatType"/> with the format type of this sticker.
         /// </returns>
         StickerFormatType FormatType { get; }
+        /// <summary>
+        ///     Gets whether this guild sticker can be used, may be false due to loss of Server Boosts
+        /// </summary>
+        /// <returns>
+        ///     A <see langword="bool"/> with the avaibility of this sticker 
+        /// </returns>
+        bool? Available { get; }
+        /// <summary>
+        ///     Gets the id of the guild that owns this sticker
+        /// </summary>
+        /// <returns>
+        ///     A <see cref="ISnowflakeEntity"/> with the id of the guild that owns this sticker
+        /// </returns>
+        ulong? GuildId { get; }
+        /// <summary>
+        ///     Gets the user that uploaded this guild sticker
+        /// </summary>
+        /// <returns>
+        ///     A <see cref="IUser"/> with the user that uploaded the guild sticker
+        /// </returns>
+        public IUser User { get; }
+        /// <summary>
+        ///     Gets the sticker's sort order within its pack
+        /// </summary>
+        /// <returns>
+        ///     A <see langword="int"/> that represents this sticker's sort order within its pack
+        /// </returns>
+        int? SortValue { get; }
+
+
     }
 }

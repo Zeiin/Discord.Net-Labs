@@ -11,7 +11,7 @@ namespace Discord
         /// <inheritdoc />
         public ulong Id { get; }
         /// <inheritdoc />
-        public ulong PackId { get; }
+        public ulong? PackId { get; }
         /// <inheritdoc />
         public string Name { get; }
         /// <inheritdoc />
@@ -21,11 +21,19 @@ namespace Discord
         /// <inheritdoc />
         public string Asset { get; }
         /// <inheritdoc />
-        public string PreviewAsset { get; }
+        public StickerType Type { get; }
         /// <inheritdoc />
         public StickerFormatType FormatType { get; }
+        /// <inheritdoc />
+        public bool? Available { get; }
+        /// <inheritdoc />
+        public ulong? GuildId { get; }
+        /// <inheritdoc />
+        public IUser User { get; }
+        /// <inheritdoc />
+        public int? SortValue { get; }
 
-        internal Sticker(ulong id, ulong packId, string name, string description, string[] tags, string asset, string previewAsset, StickerFormatType formatType)
+        internal Sticker(ulong id, ulong? packId, string name, string description, string[] tags, string asset, StickerType type, StickerFormatType formatType, bool? available, ulong? guildId, IUser user, int? sortValue)
         {
             Id = id;
             PackId = packId;
@@ -33,14 +41,18 @@ namespace Discord
             Description = description;
             Tags = tags.ToReadOnlyCollection();
             Asset = asset;
-            PreviewAsset = previewAsset;
+            Type = type;
             FormatType = formatType;
+            Available = available;
+            GuildId = guildId;
+            User = user;
+            SortValue = sortValue;
         }
         internal static Sticker Create(Model model)
         {
-            return new Sticker(model.Id, model.PackId, model.Name, model.Desription,
+            return new Sticker(model.Id, model.PackId.ToNullable() , model.Name, model.Desription,
                 model.Tags.IsSpecified ? model.Tags.Value.Split(',') : new string[0],
-                model.Asset, model.PreviewAsset, model.FormatType);
+                model.Asset, model.Type, model.FormatType, model.Available.ToNullable(), model.GuildId.ToNullable(), model.User.IsSpecified ? (IUser)model.User.Value : null, model.SortValue.ToNullable());
         }
 
         private string DebuggerDisplay => $"{Name} ({Id})";
